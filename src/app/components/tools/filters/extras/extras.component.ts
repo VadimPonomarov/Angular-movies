@@ -11,7 +11,7 @@ import {nextMonthDisabled} from "@ng-bootstrap/ng-bootstrap/datepicker/datepicke
 })
 export class ExtrasComponent implements OnInit {
 
-  value1: number = 10;
+  value1: number = 8;
   title1 = 'Пользовательский ретинг';
   options1: Options = {
     floor: 0,
@@ -21,7 +21,7 @@ export class ExtrasComponent implements OnInit {
   };
 
   minValue2: number = 0;
-  maxValue2: number = 500;
+  maxValue2: number = 300;
   title2 = 'Минимальное количество голосов пользователей';
   options2: Options = {
     floor: 0,
@@ -31,7 +31,7 @@ export class ExtrasComponent implements OnInit {
   };
 
   minValue3: number = 0;
-  maxValue3: number = 400;
+  maxValue3: number = 300;
   title3 = 'Длительность';
   options3: Options = {
     floor: 0,
