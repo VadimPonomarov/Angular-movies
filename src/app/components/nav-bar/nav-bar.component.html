@@ -10,15 +10,15 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" id="navbarDropdownMenuLink" role="button"
+          <a class="nav-link dropdown-toggle active" routerLink="movies" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
             Фильмы
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Популярные</a></li>
-            <li><a class="dropdown-item" href="#">Смотрят сечас</a></li>
-            <li><a class="dropdown-item" href="#">Ожидаемые</a></li>
-            <li><a class="dropdown-item" href="#">Лучшие</a></li>
+            <li><a class="dropdown-item" routerLink="movies/popular">Популярные</a></li>
+            <li><a class="dropdown-item" routerLink="movies/current">Смотрят сечас</a></li>
+            <li><a class="dropdown-item" routerLink="movies/upcoming">Ожидаемые</a></li>
+            <li><a class="dropdown-item" routerLink="movies/best">Лучшие</a></li>
           </ul>
         </li>
       </ul>
@@ -26,7 +26,7 @@
   </div>
   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" routerLink="register">Войти</a>
+      <a class="nav-link active" aria-current="page" routerLink="register">Регистрация</a>
     </li>
     <img width="40px"
          src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-28-search-blue-177462d06db81ff2a02aa022c1c0be5ba4200d7bd3f51091ed9298980e3a26a1.svg"

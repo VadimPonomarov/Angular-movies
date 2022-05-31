@@ -12,6 +12,13 @@ import {RegisterComponent} from './components/register/register.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./services/auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import {GenresComponent} from './components/tools/filters/genres/genres.component';
+import {ShowMeComponent} from './components/tools/filters/show-me/show-me.component';
+import {LanguageComponent} from './components/tools/filters/language/language.component';
+import {ExtrasComponent} from './components/tools/filters/extras/extras.component';
+import {HomePageComponent} from './components/home-page/home-page.component';
+import {SidebarComponent} from './components/tools/sidebar/sidebar.component';
+import {MovieService} from "./services";
 
 @NgModule({
   declarations: [
@@ -21,15 +28,22 @@ import {ReactiveFormsModule} from "@angular/forms";
     MainLayoutComponent,
     MainPageComponent,
     RegisterComponent,
+    GenresComponent,
+    ShowMeComponent,
+    LanguageComponent,
+    ExtrasComponent,
+    HomePageComponent,
+    SidebarComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgbModule,
-        HttpClientModule,
-        ReactiveFormsModule
-    ],
-  providers: [HttpClient, AuthService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+
+  ],
+  providers: [HttpClient, AuthService, MovieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

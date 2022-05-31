@@ -1,7 +1,7 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-}
-
+@import "reset";
 @import '~bootstrap/scss/bootstrap';
+
+.sidebar-title {
+  margin: 25px 0 !important;
+  width: 100%;
+}
