@@ -8,12 +8,12 @@ import {IGenreResponce} from "../interfaces/genre-responce-interface";
 @Injectable({
   providedIn: 'root'
 })
-export class MovieService {
+export class ApiService {
 
   constructor(private _httpClient: HttpClient) {
   }
 
-  getAll(): Observable<IGenreResponce> {
+  getAllGenres(): Observable<IGenreResponce> {
     return this._httpClient
       .get<IGenreResponce>(urls.genres, {params: {api_key: API_KEYS.api_key, language: 'ru-RU'}});
   };

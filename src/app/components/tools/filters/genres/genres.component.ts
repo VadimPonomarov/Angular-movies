@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IGenre} from "../../../../interfaces";
-import {MovieService} from "../../../../services";
+import {ApiService} from "../../../../services";
 
 @Component({
   selector: 'app-genres',
@@ -12,8 +12,8 @@ export class GenresComponent implements OnInit {
   title = 'Жанры';
   active: number[] = [];
 
-  constructor(private _movieService: MovieService) {
-    this._movieService.getAll().subscribe(genres => {
+  constructor(private _movieService: ApiService) {
+    this._movieService.getAllGenres().subscribe(genres => {
       this.genres = genres.genres;
     });
   }

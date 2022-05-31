@@ -18,7 +18,8 @@ import {LanguageComponent} from './components/tools/filters/language/language.co
 import {ExtrasComponent} from './components/tools/filters/extras/extras.component';
 import {HomePageComponent} from './components/home-page/home-page.component';
 import {SidebarComponent} from './components/tools/sidebar/sidebar.component';
-import {MovieService} from "./services";
+import {ApiService} from "./services";
+import {NgxSliderModule} from "@angular-slider/ngx-slider";
 
 @NgModule({
   declarations: [
@@ -41,9 +42,10 @@ import {MovieService} from "./services";
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxSliderModule
 
   ],
-  providers: [HttpClient, AuthService, MovieService],
+  providers: [HttpClient, AuthService, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
