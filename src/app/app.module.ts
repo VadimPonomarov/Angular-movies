@@ -46,6 +46,8 @@ import {NgxSliderModule} from "@angular-slider/ngx-slider";
 
   ],
   providers: [HttpClient, AuthService, ApiService],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

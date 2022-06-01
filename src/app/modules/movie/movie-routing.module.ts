@@ -8,9 +8,9 @@ const routes: Routes = [
     path: '', component: MainPageComponent, children: [
       {path: '', redirectTo: 'popular', pathMatch: 'full'},
       {path: 'popular', component: MoviesComponent},
-      {path: 'current', component: MoviesComponent},
+      {path: 'now_playing', component: MoviesComponent},
       {path: 'upcoming', component: MoviesComponent},
-      {path: 'best', component: MoviesComponent},
+      {path: 'latest', component: MoviesComponent},
     ]
   },
 
