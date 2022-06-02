@@ -2,10 +2,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {MovieRoutingModule} from './movie-routing.module';
-import {MoviesComponent} from './components/movies/movies.component';
-import {MoviesMainComponent} from './components/movies-main/movies-main.component';
-import { PaginationComponent } from './components/pagination/pagination.component';
+import {PaginationComponent} from './components/pagination/pagination.component';
 import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+import {MoviesMainComponent} from "./components/pages/movies-main/movies-main.component";
+import {MoviesComponent} from "./components/pages/movies/movies.component";
+import {MainPageCardComponent} from './components/main-page-card/main-page-card.component';
 
 
 @NgModule({
@@ -13,12 +14,13 @@ import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
     MoviesComponent,
     MoviesMainComponent,
     PaginationComponent,
+    MainPageCardComponent,
   ],
   imports: [
     CommonModule,
     MovieRoutingModule,
     NgbPaginationModule,
-  ]
+  ],
 })
 export class MovieModule {
 }

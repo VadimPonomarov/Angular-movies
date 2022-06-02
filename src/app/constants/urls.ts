@@ -7,5 +7,6 @@ export const urls = {
   guest_session: 'https://api.themoviedb.org/3/authentication/guest_session/new',
   background_pictures: 'https://image.tmdb.org/t/p/w500',
   genres: 'https://api.themoviedb.org/3/genre/movie/list',
-  movies: 'https://api.themoviedb.org/3/movie'
+  movies: 'https://api.themoviedb.org/3/movie',
+  discover: 'https://www.themoviedb.org/discover/movie'
 };

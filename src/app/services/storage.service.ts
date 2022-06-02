@@ -12,68 +12,63 @@ import {IGenresParams} from "../modules/movie/interfaces/genres-params.interface
 })
 export class StorageService {
 
+  refreshMovies = new BehaviorSubject<boolean>(false);
   registeredUser = new BehaviorSubject<IUser>({} as IUser);
   moviesPopular = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesNowPlaying = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesUpcoming = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
-  moviesLatest = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
+  moviesBest = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   genres = new BehaviorSubject<IGenre[]>([] as IGenre[]);
   genreRequestParams = new BehaviorSubject<IGenresParams>(
     {
       api_key: API_KEYS.api_key,
       language: LanguagesEnum.russian,
-    } as IGenresParams
+    }
   );
   movieRequestParams = new BehaviorSubject<IMovieParams>(
     {
       api_key: API_KEYS.api_key,
       language: LanguagesEnum.russian,
       page: 1
-    } as IMovieParams
+    }
   );
 
-  saveMovieResponce(imovieResponce: IMovieResponce, curCategory: string): any {
-    switch (curCategory) {
-      case 'popular': {
-        if (!this.moviesPopular.getValue().find(el => el.page === imovieResponce.page)) {
-          const newValue = [...this.moviesPopular.getValue(), imovieResponce];
-          this.moviesPopular.next([...newValue]);
-        }
-        break;
-      }
-      case 'upcoming': {
-        if (!this.moviesUpcoming.getValue().find(el => el.page === imovieResponce.page)) {
-          const newValue = [...this.moviesUpcoming.getValue(), imovieResponce];
-          this.moviesUpcoming.next([...newValue]);
-        }
-        break;
-      }
-      case 'latest': {
-        if (!this.moviesLatest.getValue().find(el => el.page === imovieResponce.page)) {
-          const newValue = [...this.moviesLatest.getValue(), imovieResponce];
-          this.moviesLatest.next([...newValue]);
-        }
-        break;
-      }
-      case 'now_playing': {
-        if (!this.moviesNowPlaying.getValue().find(el => el.page === imovieResponce.page)) {
-          const newValue = [...this.moviesNowPlaying.getValue(), imovieResponce];
-          this.moviesNowPlaying.next([...newValue]);
-        }
-        break;
-      }
-      default:
-        console.log('There is not such a case');
+  saveMovieResponce(imovieResponce: IMovieResponce, curCategory: string): void {
+
+    const curStore = this.getStoreByCategory(curCategory);
+
+    if (!curStore.getValue()
+      .find(el => el.page === imovieResponce.page)) {
+      const newValue = [...curStore.getValue(), imovieResponce];
+      curStore.next([...newValue]);
     }
   }
 
-  getMovieList(pageArr: number[], curCategory: MovieCategoriesEnum): IMovie[] {
-    let curStore;
+  getMovieList(pageArr: number[], curCategory: string): IMovie[] {
+
     const movieArr: IMovie[] = [];
+    const curStore = this.getStoreByCategory(curCategory);
+
+
+    const movieListFiltered = curStore.getValue()
+      .filter(pages => pages.page in pageArr);
+
+    if (movieListFiltered) {
+      movieListFiltered
+        .forEach(page => page.results
+          .forEach(movie => movieArr.push(movie)
+          )
+        );
+    }
+    return movieArr;
+  }
+
+  getStoreByCategory(curCategory: string): BehaviorSubject<IMovieResponce[]> {
+    let curStore = this.moviesPopular;
 
     switch (curCategory) {
-      case MovieCategoriesEnum.latest:
-        curStore = this.moviesLatest;
+      case MovieCategoriesEnum.top_rated:
+        curStore = this.moviesBest;
         break;
       case MovieCategoriesEnum.now_playing:
         curStore = this.moviesNowPlaying;
@@ -83,16 +78,7 @@ export class StorageService {
         break;
       default:
         curStore = this.moviesPopular;
-        break;
     }
-
-    const movieList = curStore.getValue().filter(el => el.page in pageArr);
-
-    if (movieList) {
-      movieList.forEach(el => el.results.forEach(el1 => movieArr.push(el1)));
-    }
-
-    return movieArr;
+    return curStore;
   }
-
 }

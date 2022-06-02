@@ -1,5 +1,7 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {registerLocaleData} from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -20,6 +22,8 @@ import {HomePageComponent} from './components/home-page/home-page.component';
 import {SidebarComponent} from './components/tools/sidebar/sidebar.component';
 import {ApiService} from "./services";
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
+
+registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
@@ -45,9 +49,10 @@ import {NgxSliderModule} from "@angular-slider/ngx-slider";
     NgxSliderModule
 
   ],
-  providers: [HttpClient, AuthService, ApiService],
-  exports: [
+  providers: [HttpClient, AuthService, ApiService,
+    {provide: LOCALE_ID, useValue: 'ru-Ru'}
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

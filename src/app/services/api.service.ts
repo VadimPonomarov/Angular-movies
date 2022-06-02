@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-import {MovieCategoriesEnum, urls} from "../constants";
+import {urls} from "../constants";
 import {IGenreResponce} from "../interfaces/genre-responce-interface";
 import {IMovieResponce} from "../interfaces";
 import {StorageService} from "./storage.service";
@@ -24,7 +24,8 @@ export class ApiService {
         });
   };
 
-  getMoviesByCategory(category: MovieCategoriesEnum): Observable<IMovieResponce> {
+  getMoviesByCategory(category: string, page: number): Observable<IMovieResponce> {
+
     const fetchPath = [urls.movies, category].join('/');
     return this._httpClient
       .get<IMovieResponce>(fetchPath,
