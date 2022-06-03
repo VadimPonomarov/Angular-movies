@@ -8,5 +8,5 @@ export const urls = {
   background_pictures: 'https://image.tmdb.org/t/p/w500',
   genres: 'https://api.themoviedb.org/3/genre/movie/list',
   movies: 'https://api.themoviedb.org/3/movie',
-  discover: 'https://www.themoviedb.org/discover/movie'
+  discover: 'https://api.themoviedb.org/3/discover/movie'
 };

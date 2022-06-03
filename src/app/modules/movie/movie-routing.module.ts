@@ -7,14 +7,15 @@ import {MovieResolver} from "./resolvers";
 
 const routes: Routes = [
   {
-    path: '', component: MainPageComponent, children: [
-      {
-        path: 'popular', component: MoviesComponent,
-        resolve: {movieResponce: MovieResolver}
-      },
+    path: '', component: MainPageComponent,
+    resolve: {movieResponce: MovieResolver},
+    children: [
+      {path: '', redirectTo: 'discover', pathMatch: 'full'},
+      {path: 'popular', component: MoviesComponent},
       {path: 'now_playing', component: MoviesComponent},
       {path: 'upcoming', component: MoviesComponent},
       {path: 'top_rated', component: MoviesComponent},
+      {path: 'discover', component: MoviesComponent},
     ]
   },
 ];

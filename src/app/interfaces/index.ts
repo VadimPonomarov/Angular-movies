@@ -3,3 +3,5 @@ export * from './session_id-responce.interface';
 export * from './movie-interface';
 export * from './movie-responce-interface';
 export * from './genre-interface';
+export * from './genre-responce-interface';
+export * from './movie-discover-params.interface';

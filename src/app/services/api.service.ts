@@ -20,13 +20,13 @@ export class ApiService {
     return this._httpClient
       .get<IGenreResponce>(urls.genres,
         {
-          params: {...this._storage.genreRequestParams.getValue()}
+          params: {...this._storage.movieRequestParams.getValue()}
         });
   };
 
   getMoviesByCategory(category: string, page: number): Observable<IMovieResponce> {
 
-    const fetchPath = [urls.movies, category].join('/');
+    const fetchPath = (category === 'discover') ? urls.discover : [urls.movies, category].join('/');
     return this._httpClient
       .get<IMovieResponce>(fetchPath,
         {

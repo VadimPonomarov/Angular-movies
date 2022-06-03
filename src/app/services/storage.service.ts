@@ -2,10 +2,8 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 
 import {IUser} from "../interfaces/user-interface";
-import {IGenre, IMovie, IMovieResponce} from "../interfaces";
-import {IMovieParams} from "../modules/movie/interfaces";
+import {IGenre, IMovie, IMovieDiscoverParams, IMovieResponce} from "../interfaces";
 import {API_KEYS, LanguagesEnum, MovieCategoriesEnum} from "../constants";
-import {IGenresParams} from "../modules/movie/interfaces/genres-params.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +17,7 @@ export class StorageService {
   moviesUpcoming = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesBest = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   genres = new BehaviorSubject<IGenre[]>([] as IGenre[]);
-  genreRequestParams = new BehaviorSubject<IGenresParams>(
-    {
-      api_key: API_KEYS.api_key,
-      language: LanguagesEnum.russian,
-    }
-  );
-  movieRequestParams = new BehaviorSubject<IMovieParams>(
+  movieRequestParams = new BehaviorSubject<Partial<IMovieDiscoverParams>>(
     {
       api_key: API_KEYS.api_key,
       language: LanguagesEnum.russian,
