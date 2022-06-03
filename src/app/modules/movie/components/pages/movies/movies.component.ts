@@ -12,7 +12,7 @@ import {ApiService, StorageService} from "../../../../../services";
 export class MoviesComponent {
   curCategory: string;
   curPage: number = 1;
-  currentMovieList: IMovie[];
+  currentMovieList: IMovie[] = [];
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _apiServise: ApiService,
@@ -28,12 +28,6 @@ export class MoviesComponent {
           });
       });
 
-    this._activatedRoute.data
-      .subscribe(({moviesArr}) => {
-        this.storeMovieResponce(moviesArr as IMovieResponce, this.curCategory);
-        this.getCurMovieListByPage(this.curPage, this.curCategory);
-      });
-
     this._store.refreshMovies.subscribe(() => {
       this._apiServise.getMoviesByCategory(this.curCategory, this.curPage)
         .subscribe(movies => {
@@ -47,6 +41,10 @@ export class MoviesComponent {
     this.curCategory = category;
   }
 
+  setCurPage(page: number): void {
+    this.curPage = page;
+  }
+
   storeMovieResponce(imovieResponce: IMovieResponce, curCategory: string): void {
     this._store.saveMovieResponce(imovieResponce, curCategory);
   }
@@ -55,8 +53,8 @@ export class MoviesComponent {
     this.currentMovieList = this._store.getMovieList(page, curCategory);
   };
 
-  handleChangePage(curPage: number) {
-    this.curPage = curPage;
-    this.getCurMovieListByPage(curPage, this.curCategory);
+  handleChangePage(page: number) {
+    this.setCurPage(page);
+    this.getCurMovieListByPage(this.curPage, this.curCategory);
   }
 }

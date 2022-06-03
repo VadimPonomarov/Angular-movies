@@ -27,10 +27,13 @@ export class ApiService {
   getMoviesByCategory(category: string, page: number): Observable<IMovieResponce> {
 
     const fetchPath = (category === 'discover') ? urls.discover : [urls.movies, category].join('/');
+
     return this._httpClient
       .get<IMovieResponce>(fetchPath,
         {
           params: {...this._storage.movieRequestParams.getValue()}
         });
   };
+
+
 }

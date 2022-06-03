@@ -15,6 +15,7 @@ export class StorageService {
   moviesPopular = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesNowPlaying = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesUpcoming = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
+  moviesDiscover = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesBest = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   genres = new BehaviorSubject<IGenre[]>([] as IGenre[]);
   movieRequestParams = new BehaviorSubject<Partial<IMovieDiscoverParams>>(
@@ -48,7 +49,6 @@ export class StorageService {
 
     const movieListFiltered = curStore.getValue()
       .filter(pages => pages.page === page);
-    console.log(movieListFiltered);
 
     if (movieListFiltered) {
       movieListFiltered
@@ -61,7 +61,8 @@ export class StorageService {
   }
 
   getStoreByCategory(curCategory: string): BehaviorSubject<IMovieResponce[]> {
-    let curStore = this.moviesPopular;
+
+    let curStore: BehaviorSubject<IMovieResponce[]>;
 
     switch (curCategory) {
       case MovieCategoriesEnum.top_rated:
@@ -73,9 +74,13 @@ export class StorageService {
       case MovieCategoriesEnum.upcoming:
         curStore = this.moviesUpcoming;
         break;
-      default:
+      case MovieCategoriesEnum.popular:
         curStore = this.moviesPopular;
+        break;
+      default:
+        curStore = this.moviesDiscover;
     }
+
     return curStore;
   }
 }

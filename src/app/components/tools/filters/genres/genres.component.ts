@@ -1,24 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {IGenre} from "../../../../interfaces";
-import {ApiService} from "../../../../services";
+import {ApiService, StorageService} from "../../../../services";
 
 @Component({
   selector: 'app-genres',
   templateUrl: './genres.component.html',
   styleUrls: ['./genres.component.scss']
 })
-export class GenresComponent implements OnInit {
+export class GenresComponent {
   genres: IGenre[];
   title = 'Жанры';
   active: number[] = [];
 
-  constructor(private _movieService: ApiService) {
-    this._movieService.getAllGenres().subscribe(genres => {
-      this.genres = genres.genres;
+  constructor(private _movieService: ApiService, private _store: StorageService) {
+    this._movieService.getAllGenres().subscribe(responceData => {
+      this.genres = responceData.genres;
     });
-  }
-
-  ngOnInit(): void {
   }
 
   handleClick(id: number) {
@@ -30,5 +27,11 @@ export class GenresComponent implements OnInit {
     } else {
       this.active.push(id);
     }
+    this._store.movieRequestParams
+      .next({
+          ...this._store.movieRequestParams.getValue(),
+          with_genres: this.active.join()
+        }
+      );
   }
 }
