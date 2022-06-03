@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 
 import {IMovie, IMovieResponce} from "../../../../../interfaces";
@@ -9,9 +9,9 @@ import {ApiService, StorageService} from "../../../../../services";
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent implements OnInit {
+export class MoviesComponent {
   curCategory: string;
-  curPage: number;
+  curPage: number = 1;
   currentMovieList: IMovie[];
 
   constructor(private _activatedRoute: ActivatedRoute,
@@ -20,40 +20,43 @@ export class MoviesComponent implements OnInit {
 
     this._activatedRoute.url
       .subscribe(urlSegment => {
-        this.curCategory = urlSegment[0].path;
+        const category = urlSegment[0].path;
+        this.setCurCategory(category);
         this._apiServise.getMoviesByCategory(this.curCategory, this.curPage)
           .subscribe(movies => {
             this.storeMovieResponce(movies, this.curCategory);
           });
       });
 
-    _apiServise.getMoviesByCategory(this.curCategory, this.curPage)
-      .subscribe(movies => {
-        console.log(movies);
-        this.storeMovieResponce(movies, this.curCategory);
-      });
-  }
-
-  ngOnInit(): void {
     this._activatedRoute.data
-      .subscribe(({movieResponce}) =>
-        this.currentMovieList = movieResponce
-      );
+      .subscribe(({moviesArr}) => {
+        this.storeMovieResponce(moviesArr as IMovieResponce, this.curCategory);
+        this.getCurMovieListByPage(this.curPage, this.curCategory);
+      });
+
     this._store.refreshMovies.subscribe(() => {
       this._apiServise.getMoviesByCategory(this.curCategory, this.curPage)
         .subscribe(movies => {
           this.storeMovieResponce(movies, this.curCategory);
-          this.getCurMovieListByPageArr([1, 2, 3, 4, 5], this.curCategory);
+          this.getCurMovieListByPage(this.curPage, this.curCategory);
         });
     });
+  }
+
+  setCurCategory(category: string): void {
+    this.curCategory = category;
   }
 
   storeMovieResponce(imovieResponce: IMovieResponce, curCategory: string): void {
     this._store.saveMovieResponce(imovieResponce, curCategory);
   }
 
-  getCurMovieListByPageArr(pageArr: number[] = [this.curPage], curCategory: string): void {
-    this.currentMovieList = this._store.getMovieList(pageArr, curCategory);
+  getCurMovieListByPage(page: number, curCategory: string): void {
+    this.currentMovieList = this._store.getMovieList(page, curCategory);
   };
 
+  handleChangePage(curPage: number) {
+    this.curPage = curPage;
+    this.getCurMovieListByPage(curPage, this.curCategory);
+  }
 }

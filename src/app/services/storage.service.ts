@@ -25,6 +25,11 @@ export class StorageService {
     }
   );
 
+  isPageInStore(page: number, curCategory: string): any {
+    const curStore = this.getStoreByCategory(curCategory);
+    return !!curStore.getValue().find(el => el.page === page);
+  }
+
   saveMovieResponce(imovieResponce: IMovieResponce, curCategory: string): void {
 
     const curStore = this.getStoreByCategory(curCategory);
@@ -36,14 +41,14 @@ export class StorageService {
     }
   }
 
-  getMovieList(pageArr: number[], curCategory: string): IMovie[] {
+  getMovieList(page: number, curCategory: string): IMovie[] {
 
     const movieArr: IMovie[] = [];
     const curStore = this.getStoreByCategory(curCategory);
 
-
     const movieListFiltered = curStore.getValue()
-      .filter(pages => pages.page in pageArr);
+      .filter(pages => pages.page === page);
+    console.log(movieListFiltered);
 
     if (movieListFiltered) {
       movieListFiltered

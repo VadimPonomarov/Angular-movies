@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 
 import {StorageService} from "../../../../services";
@@ -11,6 +11,8 @@ import {StorageService} from "../../../../services";
 export class PaginationComponent implements OnInit {
   page = 1;
   maxSize = 5;
+  @Input() curCategory: string;
+  @Output() changeCurPage = new EventEmitter();
 
   constructor(private _store: StorageService,
               private _router: Router,
@@ -24,6 +26,9 @@ export class PaginationComponent implements OnInit {
   handleChange() {
     this._store.movieRequestParams
       .next({...this._store.movieRequestParams.getValue(), page: this.page});
-    this._store.refreshMovies.next(!this._store.refreshMovies.getValue());
+    if (!this._store.isPageInStore(this.page, this.curCategory)) {
+      this._store.refreshMovies.next(!this._store.refreshMovies.getValue());
+    }
+    this.changeCurPage.emit(this.page);
   }
 }
