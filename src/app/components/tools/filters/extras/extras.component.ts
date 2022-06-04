@@ -70,4 +70,8 @@ export class ExtrasComponent {
     this._store.refreshSidebarTools.next(!this._store.refreshSidebarTools.getValue());
     window.location.reload();
   }
+
+  handleRefreshParams() {
+    this._store.refetchCurPage.next(!this._store.refetchCurPage.getValue());
+  }
 }

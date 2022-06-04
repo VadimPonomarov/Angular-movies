@@ -11,15 +11,22 @@ import {API_KEYS, LanguagesEnum, MovieCategoriesEnum} from "../constants";
 export class StorageService {
 
   refreshMovies = new BehaviorSubject<boolean>(false);
-  refreshRequestParams = new BehaviorSubject<boolean>(false);
+  refetchCurPage = new BehaviorSubject<boolean>(false);
   refreshSidebarTools = new BehaviorSubject<boolean>(false);
+
+  /*Guest info*/
   registeredUser = new BehaviorSubject<IUser>({} as IUser);
+
+  /*MovieResponceList by categories*/
   moviesPopular = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesNowPlaying = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesUpcoming = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesDiscover = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesBest = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
+
+  /*GenreListResponce*/
   genres = new BehaviorSubject<IGenre[]>([] as IGenre[]);
+
   baseRequestParams = new BehaviorSubject<Partial<IMovieDiscoverParams>>(
     {
       api_key: API_KEYS.api_key,
@@ -62,6 +69,11 @@ export class StorageService {
         );
     }
     return movieArr;
+  }
+
+  removeCurPage(page: number, curCategory: string): void {
+    const store = this.getStoreByCategory(curCategory);
+    store.next(store.getValue().filter(el => el.page !== page));
   }
 
   getStoreByCategory(curCategory: string): BehaviorSubject<IMovieResponce[]> {

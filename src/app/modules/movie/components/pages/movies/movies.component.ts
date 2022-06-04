@@ -35,6 +35,11 @@ export class MoviesComponent {
           this.getCurMovieListByPage(this.curPage, this.curCategory);
         });
     });
+
+    this._store.refetchCurPage.subscribe(() => {
+      this._store.removeCurPage(this.curPage, this.curCategory);
+      this._store.refreshMovies.next(!this._store.refreshMovies.getValue());
+    });
   }
 
   setCurCategory(category: string): void {
