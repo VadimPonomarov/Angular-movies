@@ -13,6 +13,7 @@ export class StorageService {
   refreshMovies = new BehaviorSubject<boolean>(false);
   refetchCurPage = new BehaviorSubject<boolean>(false);
   refreshSidebarTools = new BehaviorSubject<boolean>(false);
+  hideSidebarTools = new BehaviorSubject<boolean>(false);
 
   /*Guest info*/
   registeredUser = new BehaviorSubject<IUser>({} as IUser);

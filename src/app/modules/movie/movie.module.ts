@@ -7,6 +7,7 @@ import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 import {MoviesMainComponent} from "./components/pages/movies-main/movies-main.component";
 import {MoviesComponent} from "./components/pages/movies/movies.component";
 import {MainPageCardComponent} from './components/main-page-card/main-page-card.component';
+import { MovieComponent } from './components/pages/movie/movie.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {MainPageCardComponent} from './components/main-page-card/main-page-card.
     MoviesMainComponent,
     PaginationComponent,
     MainPageCardComponent,
+    MovieComponent,
   ],
   imports: [
     CommonModule,

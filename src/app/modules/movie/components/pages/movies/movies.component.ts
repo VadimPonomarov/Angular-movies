@@ -36,6 +36,14 @@ export class MoviesComponent {
         });
     });
 
+    _store.hideSidebarTools.subscribe(value => {
+      if (value) {
+        document.getElementById('sidebar')?.classList.add('hidden');
+      } else {
+        document.getElementById('sidebar')?.classList.remove('hidden');
+      }
+    });
+
     this._store.refetchCurPage.subscribe(() => {
       this._store.removeCurPage(this.curPage, this.curCategory);
       this._store.refreshMovies.next(!this._store.refreshMovies.getValue());

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {StorageService} from "../../services";
 
 @Component({
   selector: 'app-main-page',
@@ -7,6 +8,9 @@ import {Component} from '@angular/core';
 })
 export class MainPageComponent {
 
-  constructor() {
+  constructor(private _store: StorageService) {
+    _store.hideSidebarTools.subscribe(() => {
+      document.getElementById('sidebar')?.classList.toggle('hidden');
+    });
   }
 }
