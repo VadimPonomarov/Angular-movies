@@ -11,6 +11,8 @@ import {API_KEYS, LanguagesEnum, MovieCategoriesEnum} from "../constants";
 export class StorageService {
 
   refreshMovies = new BehaviorSubject<boolean>(false);
+  refreshRequestParams = new BehaviorSubject<boolean>(false);
+  refreshSidebarTools = new BehaviorSubject<boolean>(false);
   registeredUser = new BehaviorSubject<IUser>({} as IUser);
   moviesPopular = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesNowPlaying = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
@@ -18,12 +20,14 @@ export class StorageService {
   moviesDiscover = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   moviesBest = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
   genres = new BehaviorSubject<IGenre[]>([] as IGenre[]);
-  movieRequestParams = new BehaviorSubject<Partial<IMovieDiscoverParams>>(
+  baseRequestParams = new BehaviorSubject<Partial<IMovieDiscoverParams>>(
     {
       api_key: API_KEYS.api_key,
       language: LanguagesEnum.russian,
-      page: 1
     }
+  );
+  movieRequestParams = new BehaviorSubject<Partial<IMovieDiscoverParams>>(
+    {...this.baseRequestParams.getValue()}
   );
 
   isPageInStore(page: number, curCategory: string): any {

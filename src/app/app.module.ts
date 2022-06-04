@@ -19,7 +19,7 @@ import {ShowMeComponent} from './components/tools/filters/show-me/show-me.compon
 import {LanguageComponent} from './components/tools/filters/language/language.component';
 import {ExtrasComponent} from './components/tools/filters/extras/extras.component';
 import {HomePageComponent} from './components/home-page/home-page.component';
-import {SidebarComponent} from './components/tools/sidebar/sidebar.component';
+import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {ApiService} from "./services";
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
 

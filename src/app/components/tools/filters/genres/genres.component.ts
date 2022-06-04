@@ -8,6 +8,7 @@ import {ApiService, StorageService} from "../../../../services";
   styleUrls: ['./genres.component.scss']
 })
 export class GenresComponent {
+
   genres: IGenre[];
   title = 'Жанры';
   active: number[] = [];
@@ -16,6 +17,7 @@ export class GenresComponent {
     this._movieService.getAllGenres().subscribe(responceData => {
       this.genres = responceData.genres;
     });
+    this._store.refreshSidebarTools.subscribe(() => this.nullActive());
   }
 
   handleClick(id: number) {
@@ -27,11 +29,23 @@ export class GenresComponent {
     } else {
       this.active.push(id);
     }
+    this.storeParams();
+  }
+
+  storeParams(): void {
     this._store.movieRequestParams
       .next({
           ...this._store.movieRequestParams.getValue(),
           with_genres: this.active.join()
         }
       );
+  }
+
+  nullActive() {
+    this.active.forEach(id => {
+      const button = document.getElementById(id.toString());
+      button?.classList.toggle('active');
+    });
+    this.active = [];
   }
 }

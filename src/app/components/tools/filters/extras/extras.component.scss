@@ -1,9 +1,9 @@
-// We need to use ::ng-deep to overcome view encapsulation
 ::ng-deep {
   .custom-slider .ngx-slider .ngx-slider-bar {
     background: lightgrey;
     height: 2px;
   }
+
   .custom-slider .ngx-slider .ngx-slider-selection {
     background: dodgerblue;
   }
@@ -43,4 +43,8 @@
   .custom-slider .ngx-slider .ngx-slider-tick.ngx-slider-selected {
     background: dodgerblue;
   }
+}
+
+button.active {
+  color: red !important;
 }
