@@ -22,6 +22,11 @@ export class MoviesComponent {
       .subscribe(urlSegment => {
         const category = urlSegment[0].path;
         this.setCurCategory(category);
+        const sideBar = document.getElementById('sidebar');
+        if (sideBar?.classList.contains('hidden')) {
+          sideBar?.classList.remove('hidden');
+          this._store.hideSidebarTools.next(!this._store.hideSidebarTools.getValue());
+        }
         this._apiServise.getMoviesByCategory(this.curCategory, this.curPage)
           .subscribe(movies => {
             this.storeMovieResponce(movies, this.curCategory);

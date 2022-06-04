@@ -16,7 +16,12 @@ export class MovieComponent implements OnInit {
 
   ngOnInit(): void {
     this._activatedRoute.url.subscribe(() => {
-      this._store.hideSidebarTools.next(false);
+      //this._store.hideSidebarTools.next(false);
+      const sideBar = document.getElementById('sidebar');
+      if (!sideBar?.classList.contains('hidden')) {
+        sideBar?.classList.add('hidden');
+        this._store.hideSidebarTools.next(!this._store.hideSidebarTools.getValue());
+      }
     });
   }
 

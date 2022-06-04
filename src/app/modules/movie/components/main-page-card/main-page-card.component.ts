@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 
 
 import {IMovie} from "../../../../interfaces";
+import {StorageService} from "../../../../services";
 
 @Component({
   selector: 'app-main-page-card',
@@ -13,7 +14,7 @@ export class MainPageCardComponent implements OnInit {
   @Input() movie: IMovie;
   backgroundPicture: string;
 
-  constructor() {
+  constructor(private _store: StorageService) {
   }
 
   ngOnInit(): void {
