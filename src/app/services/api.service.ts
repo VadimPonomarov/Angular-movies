@@ -36,7 +36,7 @@ export class ApiService {
   };
 
   getMovieById(id: string): Observable<IMovie> {
-    const fetchPath = [urls.movies, id].join('/');
+    const fetchPath = [urls.movie, id].join('/');
     return this._httpClient.get<IMovie>(fetchPath, {
       params: {...this._stor.movieRequestParams.getValue()}
     });
