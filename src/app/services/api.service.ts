@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 
 import {urls} from "../constants";
 import {IGenreResponce} from "../interfaces/genre-responce-interface";
-import {IMovieResponce} from "../interfaces";
+import {IMovie, IMovieResponce} from "../interfaces";
 import {StorageService} from "./storage.service";
 
 @Injectable({
@@ -13,14 +13,14 @@ import {StorageService} from "./storage.service";
 export class ApiService {
 
   constructor(private _httpClient: HttpClient,
-              private _storage: StorageService) {
+              private _stor: StorageService) {
   }
 
   getAllGenres(): Observable<IGenreResponce> {
     return this._httpClient
       .get<IGenreResponce>(urls.genres,
         {
-          params: {...this._storage.movieRequestParams.getValue()}
+          params: {...this._stor.movieRequestParams.getValue()}
         });
   };
 
@@ -31,9 +31,14 @@ export class ApiService {
     return this._httpClient
       .get<IMovieResponce>(fetchPath,
         {
-          params: {...this._storage.movieRequestParams.getValue()}
+          params: {...this._stor.movieRequestParams.getValue()}
         });
   };
 
-
+  getMovieById(id: string): Observable<IMovie> {
+    const fetchPath = [urls.movies, id].join('/');
+    return this._httpClient.get<IMovie>(fetchPath, {
+      params: {...this._stor.movieRequestParams.getValue()}
+    });
+  }
 }

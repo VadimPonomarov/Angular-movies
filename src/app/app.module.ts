@@ -7,7 +7,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavBarComponent} from './components/nav-bar/nav-bar.component';
-import {HeaderComponent} from './components/header/header.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {RegisterComponent} from './components/register/register.component';
@@ -18,7 +17,6 @@ import {GenresComponent} from './components/tools/filters/genres/genres.componen
 import {ShowMeComponent} from './components/tools/filters/show-me/show-me.component';
 import {LanguageComponent} from './components/tools/filters/language/language.component';
 import {ExtrasComponent} from './components/tools/filters/extras/extras.component';
-import {HomePageComponent} from './components/home-page/home-page.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {ApiService} from "./services";
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
@@ -29,7 +27,6 @@ registerLocaleData(localeRu, 'ru');
   declarations: [
     AppComponent,
     NavBarComponent,
-    HeaderComponent,
     MainLayoutComponent,
     MainPageComponent,
     RegisterComponent,
@@ -37,7 +34,6 @@ registerLocaleData(localeRu, 'ru');
     ShowMeComponent,
     LanguageComponent,
     ExtrasComponent,
-    HomePageComponent,
     SidebarComponent,
   ],
   imports: [

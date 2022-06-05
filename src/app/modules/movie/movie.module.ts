@@ -23,6 +23,9 @@ import { MovieComponent } from './components/pages/movie/movie.component';
     MovieRoutingModule,
     NgbPaginationModule,
   ],
+  exports: [
+    MovieComponent
+  ]
 })
 export class MovieModule {
 }

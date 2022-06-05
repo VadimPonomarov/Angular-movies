@@ -18,19 +18,12 @@ export class MoviesComponent {
               private _apiServise: ApiService,
               private _store: StorageService) {
 
+    this._store.hideSidebarTools.next(false);
+
     this._activatedRoute.url
       .subscribe(urlSegment => {
         const category = urlSegment[0].path;
         this.setCurCategory(category);
-        const sideBar = document.getElementById('sidebar');
-        if (sideBar?.classList.contains('hidden')) {
-          sideBar?.classList.remove('hidden');
-          this._store.hideSidebarTools.next(!this._store.hideSidebarTools.getValue());
-        }
-        this._apiServise.getMoviesByCategory(this.curCategory, this.curPage)
-          .subscribe(movies => {
-            this.storeMovieResponce(movies, this.curCategory);
-          });
       });
 
     this._store.refreshMovies.subscribe(() => {
@@ -39,19 +32,6 @@ export class MoviesComponent {
           this.storeMovieResponce(movies, this.curCategory);
           this.getCurMovieListByPage(this.curPage, this.curCategory);
         });
-    });
-
-    _store.hideSidebarTools.subscribe(value => {
-      if (value) {
-        document.getElementById('sidebar')?.classList.add('hidden');
-      } else {
-        document.getElementById('sidebar')?.classList.remove('hidden');
-      }
-    });
-
-    this._store.refetchCurPage.subscribe(() => {
-      this._store.removeCurPage(this.curPage, this.curCategory);
-      this._store.refreshMovies.next(!this._store.refreshMovies.getValue());
     });
   }
 

@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-main-layout',
@@ -7,11 +6,4 @@ import {Router} from "@angular/router";
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent {
-
-  isMainPage: boolean = false;
-
-  constructor(private _router: Router) {
-    this.isMainPage = _router.url === '/main';
-  }
-
 }

@@ -24,4 +24,7 @@ export class MainPageCardComponent implements OnInit {
     ].join('/');
   }
 
+  handleClick() {
+    this._store.currentMovieStore.next(this.movie);
+  }
 }

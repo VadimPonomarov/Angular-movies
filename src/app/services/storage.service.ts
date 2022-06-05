@@ -17,6 +17,9 @@ export class StorageService {
 
   /*Guest info*/
   registeredUser = new BehaviorSubject<IUser>({} as IUser);
+  /*currentMovie*/
+
+  currentMovieStore = new BehaviorSubject<IMovie>({} as IMovie);
 
   /*MovieResponceList by categories*/
   moviesPopular = new BehaviorSubject<IMovieResponce[]>([] as IMovieResponce[]);
@@ -70,6 +73,21 @@ export class StorageService {
         );
     }
     return movieArr;
+  }
+
+  getMovieById(id: string, curCategory: string): void {
+    const curStore = this.getStoreByCategory(curCategory);
+    curStore.getValue().forEach(page => page.results.forEach(movie => {
+          if (movie.id === +id) {
+            this.currentMovieStore.next(movie as IMovie);
+          }
+        }
+      )
+    );
+  }
+
+  storeMovieAsCurrent(movie: IMovie): void {
+    this.currentMovieStore.next(movie);
   }
 
   removeCurPage(page: number, curCategory: string): void {

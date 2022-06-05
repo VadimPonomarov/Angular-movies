@@ -2,7 +2,7 @@
   <div class="card">
     <img [src]="backgroundPicture" class="card-img-top" alt="backgroundPicture">
     <div class="card-body">
-      <a [routerLink]="['movie', movie.id]">
+      <a [routerLink]="['movie', movie.id]" (click)="handleClick()">
         <h6 class="card-title">{{movie.title}}
         </h6>
       </a>

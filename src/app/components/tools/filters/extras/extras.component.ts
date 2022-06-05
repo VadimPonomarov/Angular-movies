@@ -1,4 +1,4 @@
-import {Component, EventEmitter} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute, Event, Router} from "@angular/router";
 
 import {Options} from '@angular-slider/ngx-slider';
@@ -72,6 +72,6 @@ export class ExtrasComponent {
   }
 
   handleRefreshParams() {
-    this._store.refetchCurPage.next(!this._store.refetchCurPage.getValue());
+    this._store.refreshMovies.next(!this._store.refreshMovies.getValue());
   }
 }
