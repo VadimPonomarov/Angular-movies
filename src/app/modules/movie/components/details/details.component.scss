@@ -2,3 +2,17 @@ span {
   margin: 2px !important;
   padding: 2px;
 }
+
+div.rate-circle-inner {
+  margin-top: 25px;
+  display: flex;
+  border: 4px solid orange;
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 50% !important;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
