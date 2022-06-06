@@ -1,3 +1,11 @@
-<h2>{{movie.title}} ({{movie.release_date | date: 'YYYY'}})</h2>
-<span class="border p-1">PG-13</span> {{movie.release_date | date: 'dd/mm/yy'}}(UA) - {{movie.genre_ids}}
+<h1>{{movieDetails.title}} ({{movieDetails.release_date | date: 'YYYY'}})</h1>
+<span class="border">{{movieDetails.imdb_id | uppercase}}</span>
+<span>{{movieDetails.release_date | date: 'dd/mm/yy'}}</span>
+<span>(UA)</span>
+<ng-container *ngFor="let genre of movieDetails.genres">
+  <span>{{genre.name}}</span>
+</ng-container>
+<span>{{movieDetails.runtime | date: 'hhч mmмин'}}</span>
+
+
 

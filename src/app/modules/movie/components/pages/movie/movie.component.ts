@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 
 import {ApiService, StorageService} from "../../../../../services";
-import {IMovie} from "../../../../../interfaces";
+import {IMovieDetailsResponce} from "../../../../../interfaces";
 import {urls} from "../../../../../constants";
 
 @Component({
@@ -14,30 +14,26 @@ export class MovieComponent {
 
   curMovieId: string;
   curCategory: string;
-  movie: IMovie;
+  movieDetails: Partial<IMovieDetailsResponce>;
   imgUrl: string;
   bgImgUrl: string;
+  genres: string | undefined;
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _store: StorageService, private _apiService: ApiService) {
 
     this._store.hideSidebarTools.next(true);
     this._activatedRoute.params.subscribe(({id}) => this.curMovieId = id);
-    this.movie = _store.currentMovieStore.getValue();
-    this.imgUrl = [urls.movie, this.movie.poster_path].join('/');
-    this.bgImgUrl = [urls.movie_bg, this.movie.backdrop_path].join('/');
-
     this._activatedRoute.url.subscribe(urlSegment => {
       this.curCategory = urlSegment[0].path;
     });
+  }
 
-    if (!this.movie) {
-      this._store.getMovieById(this.curMovieId, this.curCategory);
-      _apiService.getMovieById(this.curMovieId)
-        .subscribe(movie => {
-          this._store.currentMovieStore.next(movie);
-          this.movie = this._store.currentMovieStore.getValue();
-        });
-    }
+  handleDetails(details: IMovieDetailsResponce) {
+    this.movieDetails = details;
+    this.imgUrl = [urls.movie_img, details.poster_path].join('/');
+    this.bgImgUrl = [urls.movie_bg, details.backdrop_path].join('/');
+    const detailsMap = details.genres?.map(el => el.name);
+    this.genres = detailsMap?.join();
   }
 }

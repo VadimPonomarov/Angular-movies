@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 
 import {urls} from "../constants";
 import {IGenreResponce} from "../interfaces/genre-responce-interface";
-import {IMovie, IMovieResponce} from "../interfaces";
+import {IMovie, IMovieDetailsResponce, IMovieResponce} from "../interfaces";
 import {StorageService} from "./storage.service";
 
 @Injectable({
@@ -35,9 +35,9 @@ export class ApiService {
         });
   };
 
-  getMovieById(id: string): Observable<IMovie> {
-    const fetchPath = [urls.movie, id].join('/');
-    return this._httpClient.get<IMovie>(fetchPath, {
+  getMovieById(id: string): Observable<IMovieDetailsResponce> {
+    const fetchPath = [urls.movies, id].join('/');
+    return this._httpClient.get<IMovieDetailsResponce>(fetchPath, {
       params: {...this._stor.movieRequestParams.getValue()}
     });
   }

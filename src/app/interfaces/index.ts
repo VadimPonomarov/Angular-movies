@@ -5,3 +5,4 @@ export * from './movie-responce-interface';
 export * from './genre-interface';
 export * from './genre-responce-interface';
 export * from './movie-discover-params.interface';
+export * from './movie-details-responce.interface'
