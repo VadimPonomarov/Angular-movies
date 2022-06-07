@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 
-import {IUser} from "../interfaces/user-interface";
-import {IGenre, IMovie, IMovieDiscoverParams, IMovieResponce} from "../interfaces";
+import {IGenre, IMovie, IMovieDiscoverParams, IMovieResponce, IUser} from "../interfaces";
 import {API_KEYS, LanguagesEnum, MovieCategoriesEnum} from "../constants";
 
 @Injectable({
@@ -17,6 +16,7 @@ export class StorageService {
 
   /*Guest info*/
   registeredUser = new BehaviorSubject<IUser>({} as IUser);
+  refreshRegisteredUser = new BehaviorSubject<boolean>(false);
   /*currentMovie*/
 
   currentMovieStore = new BehaviorSubject<IMovie>({} as IMovie);

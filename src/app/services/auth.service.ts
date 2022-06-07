@@ -20,10 +20,9 @@ export class AuthService {
     this.getNewSession();
   }
 
-  autoGuestIfInLocal(): IUser {
+  autoGuestIfInLocal(): void {
     const {user} = this.getGuestFromLocal() as IUser | any;
     this._store.registeredUser.next(user);
-    return user;
   }
 
   getNewSession(): void {
