@@ -44,6 +44,7 @@ export class RegisterComponent implements OnChanges {
     const rawValue = this.form.getRawValue();
     delete rawValue.confirmPassword;
     this._authService.registerGuest(rawValue);
+    this._store.refreshUserInfo.next(!this._store.refreshUserInfo.getValue());
   }
 
   _checkPasswords(form: AbstractControl): ValidationErrors | null {
