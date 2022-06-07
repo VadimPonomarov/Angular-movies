@@ -10,10 +10,10 @@ import {StorageService} from "../../services";
 export class MainPageComponent implements AfterViewInit{
   hidden: boolean = true;
   constructor(private _store: StorageService) {
-
+    this._store.hideSidebarTools.subscribe(value => this.hidden = value);
   }
 
   ngAfterViewInit(): void {
-    this._store.hideSidebarTools.subscribe(value => this.hidden = value);
+
   }
 }
