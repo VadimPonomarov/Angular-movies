@@ -3,3 +3,11 @@ node_modules/
 .vscode/
 .angular/
 .idea/
+
+.gitignore
+.vscode
+.angular
+.idea
+package-lock.json
+README.md
+/node_modules
