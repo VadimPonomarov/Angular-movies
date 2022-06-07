@@ -20,6 +20,7 @@ const routes: Routes = [
       {path: 'top_rated/movie/:id', component: MovieComponent},
       {path: 'discover', component: MoviesComponent},
       {path: 'discover/movie/:id', component: MovieComponent},
+      {path: '**', redirectTo: 'discover'},
     ]
   },
 ];

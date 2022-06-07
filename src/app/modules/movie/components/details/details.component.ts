@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
-import {IMovie, IMovieDetailsResponce} from "../../../../interfaces";
-import {ApiService} from "../../../../services";
-import {ActivatedRoute} from "@angular/router";
+import {IMovieDetailsResponce, IUser} from "../../../../interfaces";
+import {ApiService, StorageService} from "../../../../services";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-details',
@@ -13,9 +13,11 @@ export class DetailsComponent {
   @Output() details = new EventEmitter();
   movieDetails: IMovieDetailsResponce;
   curMovieId: string;
+  starRating = 0;
 
   constructor(private _apiService: ApiService,
-              private _activatedRoute: ActivatedRoute) {
+              private _activatedRoute: ActivatedRoute,
+              private _store: StorageService, private _router: Router) {
     _activatedRoute.params.subscribe(({id}) => {
       this.curMovieId = id;
       _apiService.getMovieById(this.curMovieId).subscribe(movie => {
@@ -23,7 +25,24 @@ export class DetailsComponent {
         this.details.emit(movie);
       });
     });
+  }
 
+  handleClick() {
 
+    if (localStorage.getItem('movies')) {
+      const {session} = JSON.parse(localStorage.getItem('movies') as IUser | any);
+      return this._apiService.rateMovie(this.curMovieId, {value: this.starRating}, session)
+        .subscribe(httpResponce => console.log(httpResponce));
+    }
+    const {session} = this._store.registeredUser.getValue();
+    if (session) {
+      return this._apiService.rateMovie(this.curMovieId, {value: this.starRating}, session)
+        .subscribe(httpResponce => console.log(httpResponce));
+    }
+    if (!session) {
+      if (confirm('Для осуществления операции необходимо зарегистрироваться! Продолжить?')) {
+        return this._router.navigate(['register']);
+      }
+    }
   }
 }

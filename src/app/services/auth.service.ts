@@ -11,34 +11,59 @@ import {API_KEYS, urls} from "../constants";
 })
 export class AuthService {
 
-  constructor(private _storage: StorageService, private _httpClient: HttpClient) {
+  constructor(private _store: StorageService, private _httpClient: HttpClient) {
   }
 
   registerGuest(user: IUser): void {
     const passwordCrypto = md5(user.password);
-    this._storage.registeredUser.next({...user, password: passwordCrypto});
-    this.setNewSession();
-    this._storage.registeredUser.subscribe({
-      next: value => console.log(value)
-    });
+    this._store.registeredUser.next({...user, password: passwordCrypto});
+    this.getNewSession();
   }
 
-  setNewSession(): void {
+  autoGuestIfInLocal(): void {
+    const user = this.getGuestFromLocal() as IUser | any;
+    this._store.registeredUser.next(user);
+    return user;
+  }
+
+  getNewSession(): void {
     this._httpClient
       .get<ISessionIdResponce>(urls.guest_session, {params: {api_key: API_KEYS.api_key}})
-      .subscribe(sessionData => this.setSessionId(sessionData.guest_session_id));
+      .subscribe(sessionData => {
+        this.setSessionId(sessionData.guest_session_id);
+        if (localStorage.getItem('movie')) {
+          this.removeGuestFromLocal();
+        }
+        if (confirm('Сохранить в Local Storage ?')) {
+          this.storeGuestToLocal(this._store.registeredUser.getValue());
+          this.getGuestFromLocal();
+        }
+      });
   }
 
   setSessionId(sessionId: string): void {
-    this._storage.registeredUser
-      .next({...this._storage.registeredUser.getValue(), session: sessionId});
+    this._store.registeredUser
+      .next({...this._store.registeredUser.getValue(), session: sessionId});
   }
 
   getSessionId(): string | undefined {
-    return this._storage.registeredUser.getValue().session;
+    return this._store.registeredUser.getValue().session;
   }
 
   removeSessionId(): void {
     this.setSessionId('');
+  }
+
+  storeGuestToLocal(user: IUser): void {
+    localStorage.setItem('movies', JSON.stringify(user));
+  }
+
+  getGuestFromLocal(): void {
+    const guest: IUser | any = localStorage?.getItem('movies');
+    return JSON.parse(guest);
+  }
+
+  removeGuestFromLocal(): void {
+    localStorage.removeItem('movies');
   }
 }

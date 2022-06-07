@@ -72,6 +72,7 @@ export class ExtrasComponent {
   }
 
   handleRefreshParams() {
+    this._store.refetchCurPage.next(!this._store.refetchCurPage.getValue());
     this._store.refreshMovies.next(!this._store.refreshMovies.getValue());
   }
 }

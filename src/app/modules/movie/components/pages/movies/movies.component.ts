@@ -33,6 +33,10 @@ export class MoviesComponent {
           this.getCurMovieListByPage(this.curPage, this.curCategory);
         });
     });
+    
+    this._store.refetchCurPage.subscribe(() => {
+      this._store.removeCurPage(this.curPage, this.curCategory);
+    });
   }
 
   setCurCategory(category: string): void {

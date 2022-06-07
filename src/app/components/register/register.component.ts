@@ -1,4 +1,5 @@
 import {Component, OnChanges, SimpleChanges} from '@angular/core';
+import {Location} from "@angular/common";
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 
@@ -13,7 +14,7 @@ export class RegisterComponent implements OnChanges {
 
   form: FormGroup;
 
-  constructor(private _authService: AuthService, private _router: Router, private _store: StorageService) {
+  constructor(private _location: Location, private _authService: AuthService, private _router: Router, private _store: StorageService) {
     this._createForm();
   }
 
@@ -53,5 +54,9 @@ export class RegisterComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this._store.registeredUser.subscribe(value => console.log(value));
+  }
+
+  handleClick() {
+    this._location.back();
   }
 }

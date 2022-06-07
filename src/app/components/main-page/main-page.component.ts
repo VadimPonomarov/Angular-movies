@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+
 import {StorageService} from "../../services";
-import {urls} from "../../constants";
-import {IMovie} from "../../interfaces";
 
 @Component({
   selector: 'app-main-page',
@@ -9,10 +8,10 @@ import {IMovie} from "../../interfaces";
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-  hidden: boolean;
+  hidden: boolean = false;
 
   constructor(private _store: StorageService) {
-    this.hidden = _store.hideSidebarTools.getValue();
     this._store.hideSidebarTools.subscribe(value => this.hidden = value);
+    _store.hideSidebarTools.getValue();
   }
 }

@@ -6,12 +6,13 @@ import {RegisterComponent} from "./components/register/register.component";
 const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
+      {path: '', redirectTo: 'movie', pathMatch: 'full'},
       {
         path: 'movies', loadChildren: () => import('./modules/movie/movie.module')
           .then(v => v.MovieModule)
       },
       {path: 'register', component: RegisterComponent},
-      {path: '**', redirectTo: 'main'}
+      {path: '**', redirectTo: 'movies'}
     ]
   }
 ];

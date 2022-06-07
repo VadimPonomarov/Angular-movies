@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
-import {AuthService} from "../../services";
+
+import {AuthService, StorageService} from "../../services";
+import {IUser} from "../../interfaces";
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,9 +10,10 @@ import {AuthService} from "../../services";
 })
 export class NavBarComponent {
 
-  constructor(private _authService: AuthService) {
+  user: string;
+
+  constructor(private _store: StorageService, private _authService: AuthService) {
+    const {username} = _authService.autoGuestIfInLocal() as IUser | any;
+    this.user = username;
   }
-
-
-
 }
