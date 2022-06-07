@@ -8,10 +8,9 @@ import {StorageService} from "../../services";
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-  hidden: boolean = false;
+  hidden: boolean = true;
 
   constructor(private _store: StorageService) {
     this._store.hideSidebarTools.subscribe(value => this.hidden = value);
-    _store.hideSidebarTools.getValue();
   }
 }

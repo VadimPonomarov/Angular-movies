@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute, Event, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 import {Options} from '@angular-slider/ngx-slider';
 import {StorageService} from '../../../../services';

@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Output} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 import {IMovieDetailsResponce, IUser} from "../../../../interfaces";
 import {ApiService, StorageService} from "../../../../services";
-import {ActivatedRoute, Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-details',
@@ -18,6 +19,9 @@ export class DetailsComponent {
   constructor(private _apiService: ApiService,
               private _activatedRoute: ActivatedRoute,
               private _store: StorageService, private _router: Router) {
+
+    _store.hideSidebarTools.next(true);
+
     _activatedRoute.params.subscribe(({id}) => {
       this.curMovieId = id;
       _apiService.getMovieById(this.curMovieId).subscribe(movie => {
@@ -28,7 +32,6 @@ export class DetailsComponent {
   }
 
   handleClick() {
-
     if (localStorage.getItem('movies')) {
       const {session} = JSON.parse(localStorage.getItem('movies') as IUser | any);
       return this._apiService.rateMovie(this.curMovieId, {value: this.starRating}, session)
