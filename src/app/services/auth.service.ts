@@ -20,8 +20,8 @@ export class AuthService {
     this.getNewSession();
   }
 
-  autoGuestIfInLocal(): void {
-    const user = this.getGuestFromLocal() as IUser | any;
+  autoGuestIfInLocal(): IUser {
+    const {user} = this.getGuestFromLocal() as IUser | any;
     this._store.registeredUser.next(user);
     return user;
   }
@@ -58,7 +58,7 @@ export class AuthService {
     localStorage.setItem('movies', JSON.stringify(user));
   }
 
-  getGuestFromLocal(): void {
+  getGuestFromLocal(): IUser {
     const guest: IUser | any = localStorage?.getItem('movies');
     return JSON.parse(guest);
   }
