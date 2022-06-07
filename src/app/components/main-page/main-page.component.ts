@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 
 import {StorageService} from "../../services";
 
@@ -7,13 +7,10 @@ import {StorageService} from "../../services";
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent implements AfterViewInit{
+export class MainPageComponent {
   hidden: boolean = true;
+
   constructor(private _store: StorageService) {
     this._store.hideSidebarTools.subscribe(value => this.hidden = value);
-  }
-
-  ngAfterViewInit(): void {
-
   }
 }
