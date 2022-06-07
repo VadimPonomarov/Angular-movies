@@ -14,6 +14,6 @@ export class MainPageComponent implements AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    this._store.hideSidebarTools.subscribe(value => this.hidden = value);
+
   }
 }
