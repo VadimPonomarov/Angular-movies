@@ -13,7 +13,10 @@ export class NavBarComponent {
   user: string;
 
   constructor(private _store: StorageService, private _authService: AuthService) {
-    const {username} = _authService.autoGuestIfInLocal() as IUser | any;
-    this.user = username;
+
+    if (localStorage.getItem('movies')) {
+      const username = _authService.autoGuestIfInLocal() as IUser | any;
+      this.user = username;
+    }
   }
 }

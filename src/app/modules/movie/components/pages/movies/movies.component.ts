@@ -27,13 +27,13 @@ export class MoviesComponent {
       });
 
     this._store.refreshMovies.subscribe(() => {
-      this._apiServise.getMoviesByCategory(this.curCategory, this.curPage)
+      this._apiServise.getMoviesByCategory(this.curCategory)
         .subscribe(movies => {
           this.storeMovieResponce(movies, this.curCategory);
           this.getCurMovieListByPage(this.curPage, this.curCategory);
         });
     });
-    
+
     this._store.refetchCurPage.subscribe(() => {
       this._store.removeCurPage(this.curPage, this.curCategory);
     });

@@ -3,8 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 import {API_KEYS, urls} from "../constants";
-import {IGenreResponce} from "../interfaces/genre-responce-interface";
-import {IMovieDetailsResponce, IMovieRating, IMovieResponce} from "../interfaces";
+import {IGenreResponce, IMovieDetailsResponce, IMovieRating, IMovieResponce} from "../interfaces";
 import {StorageService} from "./storage.service";
 
 @Injectable({
@@ -20,11 +19,11 @@ export class ApiService {
     return this._httpClient
       .get<IGenreResponce>(urls.genres,
         {
-          params: {...this._store.movieRequestParams.getValue()}
+          params: {...this._store.movieRequestParams.getValue(), language: 'ru'}
         });
   };
 
-  getMoviesByCategory(category: string, page: number): Observable<IMovieResponce> {
+  getMoviesByCategory(category: string): Observable<IMovieResponce> {
 
     const fetchPath = (category === 'discover') ? urls.discover : [urls.movies, category].join('/');
 
